@@ -3,6 +3,15 @@ import re
 import csv
 import sys
 
+# --- 新增清理舊檔案機制 ---
+# 尋找當前目錄下所有 .csv 檔案並刪除
+for old_file in glob.glob("*.csv"):
+    try:
+        os.remove(old_file)
+        print(f"已清理舊檔案: {old_file}")
+    except Exception as e:
+        print(f"清理舊檔案 {old_file} 失敗: {e}")
+
 # 1. 接收 Jenkins 參數 (自動轉為環境變數)
 # 注意：此處的鍵值必須與 Jenkins 設定的參數名稱完全一致
 redis_cmd = os.environ.get('REDIS_INPUT', '')
